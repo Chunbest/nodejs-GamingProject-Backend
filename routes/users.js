@@ -13,4 +13,11 @@ const router = express.Router()
 
 router.post('/signup', usersController.postSignup)
 
+router.post('/signin', usersController.postSignin)
+
+// router.get('/profile', auth, usersController.getProfile)
+
+// router.put('/profile', auth, usersController.putProfile)
+
+// router.put('/password', auth, usersController.putPassword)
 module.exports = router
