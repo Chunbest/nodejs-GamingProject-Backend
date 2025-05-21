@@ -1,9 +1,3 @@
-// class UsersController {
-//   static async postSignup (req, res, next) {
-//   }
-// }
-
-// module.exports = UsersController
 const bcrypt = require("bcrypt");
 
 const config = require("../config/index");
