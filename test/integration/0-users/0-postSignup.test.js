@@ -32,7 +32,7 @@ describe(`POST ${route}`, () => {
       .post(route)
       .send({
         name: "測試用戶",
-        password: "hexschool12345",
+        password: "hexSchool12345",
       })
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
@@ -44,7 +44,7 @@ describe(`POST ${route}`, () => {
       .post(route)
       .send({
         ...testUserInfo,
-        password: "hexschool12345",
+        password: "hexSchool12345",
       })
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)

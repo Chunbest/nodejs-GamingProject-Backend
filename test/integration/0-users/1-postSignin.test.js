@@ -31,7 +31,7 @@ describe(`POST ${route}`, () => {
 		const result = await server
 			.post(route)
 			.send({
-				email: 6666
+				email: testUserInfo.email
 			})
 			.set('Accept', 'application/json')
 			.expect('Content-Type', /json/)
