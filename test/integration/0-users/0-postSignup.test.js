@@ -44,7 +44,7 @@ describe(`POST ${route}`, () => {
       .post(route)
       .send({
         ...testUserInfo,
-        password: "hexSchool12345",
+        password: "hexschool12345",
       })
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
