@@ -45,7 +45,7 @@ describe(`POST ${route}`, () => {
       .send({
         ...testUserInfo,
         password: "hexschool12345",
-      })
+	  })
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(StatusCodes.BAD_REQUEST);
