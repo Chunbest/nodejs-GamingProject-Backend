@@ -80,7 +80,6 @@ describe(`POST ${route}`, () => {
 			.expect(StatusCodes.UNAUTHORIZED);
 		expect(result.body.message).toEqual("你沒有權限存取此資源");
 	});
-
 	it("不輸入user，回傳HTTP Code 400", async () => {
 		const result = await server
 			.post(route)

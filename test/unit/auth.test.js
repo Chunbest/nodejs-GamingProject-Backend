@@ -3,9 +3,9 @@ const {
 // eslint-disable-next-line import/no-extraneous-dependencies
 } = require('@jest/globals')
 
-const config = require('../../../config/index')
-const jwt = require('../../../utils/generateJWT')
-const auth = require('../../../middlewares/auth')
+const config = require('../../config/index')
+const jwt = require('../../utils/generateJWT')
+const auth = require('../../middlewares/auth')
 
 describe('Test - auth Middleware', () => {
   const secret = config.get('secret.jwtSecret')

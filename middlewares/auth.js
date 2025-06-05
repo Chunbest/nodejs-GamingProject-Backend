@@ -7,10 +7,11 @@ const FailedMessageMap = {
   missing: '你沒有權限存取此資源'
 }
 
-function generateError (status, message) {
-  const error = new Error(message)
-  error.status = status
-  return error
+function generateError(statusCode, message) {
+	const error = new Error(message)
+	error.statusCode = statusCode
+	error.status = 'fail'
+    return error
 }
 
 function formatVerifyError (jwtError) {
