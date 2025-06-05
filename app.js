@@ -34,17 +34,20 @@ app.use('/api/v1/category', categoryRouter)
 app.use('/api/v1/products', productRouter)
 app.use('/api/v1/orders', ordersRouter)
 
+//status改成statusCode 
+//加入res回傳強制JSON
 app.use((err, req, res, next) => {
-	req.log.error(err)
-	if (err.status) {
-		res.status(err.status).json({
-			message: err.message
-		})
-		return
+	if (req.log && typeof req.log.error === 'function') {
+		req.log.error(err)
+	} else {
+		console.error('[Error Handler] log missing:', err)
 	}
-	res.status(500).json({
-		message: '伺服器錯誤'
-	})
-})
-
+	const status = err.statusCode || err.status || 500
+	res.status(status)
+	   .type('application/json') // 確保 Content-Type 是 JSON
+	   .json({
+			message: err.message || '伺服器錯誤'
+		})
+  })
+  
 module.exports = app

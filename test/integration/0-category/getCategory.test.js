@@ -43,7 +43,7 @@ describe(`GET ${route}`, () => {
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(500)
-    expect(result.body.message).toEqual('伺服器錯誤')
+    expect(result.body.message).toEqual('資料庫發生錯誤')
   })
   afterEach(() => {
     jest.clearAllMocks()
