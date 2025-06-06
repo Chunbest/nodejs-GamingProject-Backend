@@ -1,7 +1,6 @@
-//啟動伺服器之前先將資料庫物件初始化
-
 const app = require('./app')
 const { dataSource } = require('./db/data-source');
+// 啟動伺服器之前先將資料庫物件初始化
 
 (async () => {
 	try {
