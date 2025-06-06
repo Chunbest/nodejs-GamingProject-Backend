@@ -117,6 +117,8 @@ jobs:
         file_name: .env
     - name: init schema
       run: npm run init:schema
+    - name: seed test data
+      run: node scripts/seed.js
     - name: test server
       run: npm run test:integration
     - name: upload coverage report
