@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 const pinoHttp = require('pino-http')
+console.log("[Render][app] 基本套件載入完成");
 
 const logger = require('./utils/logger')('App')
 const usersRouter = require('./routes/users')
@@ -9,6 +10,7 @@ const categoryRouter = require('./routes/category')
 const productRouter = require('./routes/products')
 const ordersRouter = require('./routes/orders')
 
+console.log("[Render][app] 所有 routes 載入完成");
 
 const app = express()
 app.use(cors())
