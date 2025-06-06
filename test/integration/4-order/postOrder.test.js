@@ -54,8 +54,12 @@ describe(`POST ${route}`, () => {
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
 			.expect(StatusCodes.OK);
-		const firstProduct = products.body.data.products[0];
-		const firstProductId = firstProduct.id;
+		const productList = products.body?.data?.products;
+		if (!Array.isArray(productList) || productList.length === 0) {
+			throw new Error("沒有產品可用於建立訂單測試");
+		}
+		const firstProductId = productList[0].id;
+		console.log(firstProductId)
 		const getProductDetail = await server
 			.get(`/api/v1/products/${firstProductId}`)
 			.set("Accept", "application/json")
