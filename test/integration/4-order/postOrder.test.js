@@ -59,7 +59,6 @@ describe(`POST ${route}`, () => {
 			throw new Error("沒有產品可用於建立訂單測試");
 		}
 		const firstProductId = productList[0].id;
-		console.log(firstProductId)
 		const getProductDetail = await server
 			.get(`/api/v1/products/${firstProductId}`)
 			.set("Accept", "application/json")
@@ -489,6 +488,19 @@ describe(`POST ${route}`, () => {
 			.expect(StatusCodes.OK);
 		expect(result.body.message).toEqual("加入成功");
 	});
+	it('資料庫發生錯誤，回傳HTTP Code 500', async () => {
+		jest.spyOn(dataSource, 'getRepository').mockImplementation(() => {
+			throw new Error('資料庫發生錯誤')
+		})
+		const result = await server
+			.post(route)
+			.send(orderInfo)
+			.set('Accept', 'application/json')
+			.set('Authorization', `Bearer ${token}`)
+			.expect('Content-Type', /json/)
+			.expect(500)
+		expect(result.body.message).toEqual('資料庫發生錯誤')
+	})
 
 	afterEach(() => {
 		jest.restoreAllMocks();
