@@ -54,8 +54,10 @@ describe(`POST ${route}`, () => {
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
 			.expect(StatusCodes.OK);
+		const firstProduct = products.body.data.products[0];
+		const firstProductId = firstProduct.id;
 		const getProductDetail = await server
-			.get(`/api/v1/products/${products.body.data.products[0].id}`)
+			.get(`/api/v1/products/${firstProductId}`)
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
 			.expect(200);
