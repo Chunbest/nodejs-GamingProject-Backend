@@ -1,20 +1,7 @@
-// 載入 dotenv 套件，用來讀取 .env 檔的環境變數
-const dotenv = require('dotenv');
-
-// 載入 Node.js 內建的 fs（File System）模組，用來操作檔案
-const fs = require('fs');
+const dotenv = require('dotenv')
 
 
-// ✅【判斷用】：如果目前目錄下有 `.env` 檔案（表示你是在本地開發）
-if (fs.existsSync('.env')) {
-	// 📥 嘗試載入 .env 檔案內容到 process.env
-	const result = dotenv.config();
-
-	// ⚠️ 如果讀取失敗（通常是格式錯誤），印出警告
-	if (result.error) {
-		console.warn('⚠️ Failed to load .env file', result.error);
-	}
-}
+const result = dotenv.config()
 
 const db = require('./db')
 const web = require('./web')
