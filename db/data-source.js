@@ -14,7 +14,6 @@ const PaymentStatuses = require("../entities/PaymentStatuses");
 
 
 
-
 const dataSource = new DataSource({
 	type: "postgres",
 	host: config.get("db.host"),

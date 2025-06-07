@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 // 載入 Node.js 內建的 fs（File System）模組，用來操作檔案
 const fs = require('fs');
 
+
 // ✅【判斷用】：如果目前目錄下有 `.env` 檔案（表示你是在本地開發）
 if (fs.existsSync('.env')) {
 	// 📥 嘗試載入 .env 檔案內容到 process.env
