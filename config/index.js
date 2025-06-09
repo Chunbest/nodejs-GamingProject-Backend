@@ -1,17 +1,19 @@
 // 載入 dotenv 套件，用來讀取 .env 檔案中的環境變數
 const dotenv = require('dotenv')
 
+
 if (process.env.RENDER) {
-	// Render 平台上執行時，不載入 .env，並顯示錯誤後中止程式
-	console.error("[dotenv] 目前在 Render 環境中,無法讀取本地端 .env 檔案。");
-	throw new Error("[dotenv] 偵測到 Render 環境，應用程式中止以避免使用本地環境變數。");
+	// Render 平台上執行，使用 Render 環境變數（不載入 .env）
+	console.log("[dotenv] 偵測到 Render 環境，使用 Render 設定的環境變數。");
 } else {
-	// 本地環境時才載入 .env 檔案
+	// 本地端執行，嘗試載入 .env 檔案
 	const result = dotenv.config();
 
 	if (result.error) {
 		console.error("[dotenv] 載入 .env 檔案失敗：", result.error);
 		throw result.error;
+	} else {
+		console.log("[dotenv] 成功載入本地 .env 檔案。");
 	}
   }
 
