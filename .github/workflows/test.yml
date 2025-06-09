@@ -99,7 +99,7 @@ jobs:
     - name: Make env file
       uses: SpicyPizza/create-envfile@v1
       with:
-        envkey_NODE_ENV: production
+        envkey_NODE_ENV: test
         envkey_DB_HOST: ${{ env.DB_HOST }}
         envkey_DB_PORT: ${{ env.DB_PORT }}
         envkey_DB_DATABASE: ${{ env.DB_DATABASE }}
