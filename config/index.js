@@ -1,16 +1,21 @@
+// 載入 dotenv 套件，用來讀取 .env 檔案中的環境變數
 const dotenv = require('dotenv')
 
+// 判斷目前是否在 Render 雲端平台上執行：
+// 如果不是（本地開發環境），才需要嘗試載入 .env 檔案
+if (!process.env.RENDER) {
+	// 嘗試載入根目錄下的 .env 檔案，結果會存入 result
+	const result = dotenv.config()
 
-const result = dotenv.config()
+	// 如果載入過程出現錯誤（例如檔案不存在或格式錯誤）
+	if (result.error) {
+		// 印出錯誤訊息到終端機，方便開發者排錯
+		console.error("[dotenv] 無法讀取 .env 檔案：", result.error)
 
-// 如果 dotenv 載入 .env 檔失敗，且目前不是在 Render 上執行（process.env.RENDER 不存在）
-if (result.error && !process.env.RENDER) {
-	// 顯示錯誤訊息：提示無法讀取 .env 檔案的原因
-	console.error("[dotenv] 無法讀取 .env：", result.error);
-
-	// 中斷程式執行，避免在本地開發時因缺少變數導致後續錯誤
-	throw result.error;
-  }
+		// 終止程式執行，避免缺少必要的環境變數導致後續錯誤
+		throw result.error
+	}
+}
 
 const db = require('./db')
 const web = require('./web')
