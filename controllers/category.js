@@ -4,10 +4,11 @@ const logger = require('../utils/logger')('CategoryController')
 class CategoryController {
 	static async postCategories(req, res, next) {
 		try {
-			const { name } = req.body;
+			const { name, description } = req.body;
 			const categoryRepository = await dataSource.getRepository('product_categories')
 			const newCategories = await categoryRepository.create({
-				name
+				name,
+				description
 			})
 			console.log(req.body.name);
 			const saveCategories = await categoryRepository.save(newCategories)
