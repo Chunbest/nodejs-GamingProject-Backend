@@ -50,7 +50,7 @@ describe(`POST ${route}`, () => {
 			.expect(StatusCodes.BAD_REQUEST)
 		expect(result.body.message).toEqual('密碼不符合規則，需要包含英文數字大小寫，最短8個字，最長32個字')
 	})
-	it('帶入正確的登入資訊，回傳HTTP Code 201', async () => {
+	it('帶入正確的登入資訊，回傳HTTP Code 200', async () => {
 		const result = await server
 			.post(route)
 			.send({
