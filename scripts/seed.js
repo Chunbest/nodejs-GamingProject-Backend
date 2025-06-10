@@ -20,6 +20,7 @@ async function seed() {
 	// 2. 建立產品分類 
 	const testCategory = categoryRepo.create({
 		name: "測試分類",
+		description: "測試分類敘述"
 	});
 	await categoryRepo.save(testCategory);
 
