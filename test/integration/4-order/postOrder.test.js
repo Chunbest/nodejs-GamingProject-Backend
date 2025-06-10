@@ -47,7 +47,7 @@ describe(`POST ${route}`, () => {
 			})
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
-			.expect(StatusCodes.CREATED);
+			.expect(StatusCodes.OK);
 		token = loginResult.body.data.token;
 		const products = await server
 			.get("/api/v1/products")
