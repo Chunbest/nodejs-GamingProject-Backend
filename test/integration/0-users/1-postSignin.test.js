@@ -59,7 +59,7 @@ describe(`POST ${route}`, () => {
 			})
 			.set('Accept', 'application/json')
 			.expect('Content-Type', /json/)
-			.expect(StatusCodes.CREATED)
+			.expect(StatusCodes.OK)
 		expect(typeof result.body.data.token).toBe('string')
 		expect(result.body.data.user.name).toEqual(testUserInfo.name)
 	})

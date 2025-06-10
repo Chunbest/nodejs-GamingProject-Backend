@@ -69,7 +69,7 @@ class UsersController {
 			});
 			const savedUser = await userRepository.save(newUser);
 			logger.info("新建立的使用者ID:", savedUser.id);
-			res.status(200).json({
+			res.status(201).json({
 				message: "註冊成功",
 			});
 		} catch (error) {
