@@ -25,7 +25,7 @@ class CategoryController {
 	static async getCategories(req, res, next) {
 		try {
 			const categories = await dataSource.getRepository('product_categories').find({
-				select: ['id', 'name']
+				select: ['id', 'name', 'description']
 			})
 			res.status(200).json({
 				message: '成功',
