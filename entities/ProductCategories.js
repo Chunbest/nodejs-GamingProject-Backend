@@ -15,13 +15,13 @@ module.exports = new EntitySchema({
       length: 50,
       nullable: false,
       unique: true
-	},
-	description: {
-	 type: 'varchar',
-	 length: 50,
-	 nullable: false,
-	 unique: true
-	},
+    },
+     description: {
+      type: 'varchar',
+      length: 50,
+      nullable: true,
+      unique: true
+    },
 	  
     created_at: {
       type: 'timestamp',
