@@ -10,7 +10,6 @@ class CategoryController {
 				name,
 				description
 			})
-			console.log(req.body.name);
 			const saveCategories = await categoryRepository.save(newCategories)
 
 			res.status(200).json({
