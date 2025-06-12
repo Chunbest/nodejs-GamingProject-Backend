@@ -11,9 +11,9 @@ const auth = require('../middlewares/auth')({
 	logger
 })
 
-router.post('/signup', usersController.postSignup)
+router.post('/sign-up', usersController.postSignup)
 
-router.post('/signin', usersController.postSignin)
+router.post('/sign-in', usersController.postSignin)
 
 router.get('/profile', auth, usersController.getProfile)
 

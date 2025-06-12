@@ -12,7 +12,7 @@ const { StatusCodes } = require("http-status-codes");
 const TestServer = require("../testServer");
 const { dataSource } = require("../../../db/data-source");
 
-const route = "/api/v1/users/signup";
+const route = "/api/v1/users/sign-up";
 
 describe(`POST ${route}`, () => {
   let server;

@@ -71,6 +71,7 @@ class UsersController {
 			logger.info("新建立的使用者ID:", savedUser.id);
 			res.status(201).json({
 				message: "註冊成功",
+				data: savedUser
 			});
 		} catch (error) {
 			logger.error("建立使用者錯誤:", error);

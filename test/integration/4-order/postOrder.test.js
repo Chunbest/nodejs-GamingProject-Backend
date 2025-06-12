@@ -34,7 +34,7 @@ describe(`POST ${route}`, () => {
 	beforeAll(async () => {
 		server = await TestServer.getServer();
 		await server
-			.post("/api/v1/users/signup")
+			.post("/api/v1/users/sign-up")
 			.send(testUserInfo)
 			.set("Accept", "application/json")
 			.expect("Content-Type", /json/)
