@@ -39,6 +39,17 @@ describe(`POST ${route}`, () => {
       .expect(StatusCodes.BAD_REQUEST);
     expect(result.body.message).toEqual("欄位未填寫正確");
   });
+	it("輸入錯誤格式 email，回傳 Email格式不正確", async () => {
+		const result = await server
+			.post(route)
+			.send({
+				name: "測試用戶",
+				email: "not-an-email",
+				password: "hexSchool12345"
+			})
+			.expect(400);
+		expect(result.body.message).toEqual("Email格式不正確");
+	});
   it("輸入格式錯誤的密碼，回傳HTTP Code 400", async () => {
     const result = await server
       .post(route)
