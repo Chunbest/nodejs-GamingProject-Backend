@@ -31,8 +31,8 @@ describe(`POST ${route}`, () => {
     const result = await server
       .post(route)
       .send({
-        name: "測試用戶",
-        password: "hexSchool12345",
+		  name: "測試用戶",
+          password: "hexSchool12345",
       })
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
@@ -44,7 +44,7 @@ describe(`POST ${route}`, () => {
 			.post(route)
 			.send({
 				name: "測試用戶",
-				email: `${new Date().getTime()}@example.com  `,
+				email: `${new Date().getTime()}@@example.com`,
 				password: "hexSchool12345"
 			})
 			.expect(400);
