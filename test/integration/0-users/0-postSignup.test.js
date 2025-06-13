@@ -37,8 +37,22 @@ describe(`POST ${route}`, () => {
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(StatusCodes.BAD_REQUEST);
-	  expect(result.body.message).toEqual("Email格式不正確");
+	  expect(result.body.message).toEqual("欄位未填寫正確");
   });
+	// 加入email驗證
+	it("帶入格式錯誤的 email，回傳 HTTP 400", async () => {
+		const result = await server
+			.post(route)
+			.send({
+				email: "錯的格式@@",
+				password: "hexSchool12345",
+			})
+			.set("Accept", "application/json")
+			.expect("Content-Type", /json/)
+			.expect(StatusCodes.BAD_REQUEST);
+
+		expect(result.body.message).toEqual("Email格式不正確");
+	  });
   it("輸入格式錯誤的密碼，回傳HTTP Code 400", async () => {
     const result = await server
       .post(route)
