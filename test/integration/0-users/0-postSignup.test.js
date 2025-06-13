@@ -39,6 +39,7 @@ describe(`POST ${route}`, () => {
       .expect(StatusCodes.BAD_REQUEST);
     expect(result.body.message).toEqual("欄位未填寫正確");
   });
+<<<<<<< HEAD
 	it("輸入錯誤格式 email，回傳 Email格式不正確", async () => {
 		const result = await server
 			.post(route)
@@ -50,6 +51,8 @@ describe(`POST ${route}`, () => {
 			.expect(400);
 		expect(result.body.message).toEqual("Email格式不正確");
 	});
+=======
+>>>>>>> parent of f013043 (test同步加入it信箱驗證)
   it("輸入格式錯誤的密碼，回傳HTTP Code 400", async () => {
     const result = await server
       .post(route)
