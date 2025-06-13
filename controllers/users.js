@@ -6,8 +6,9 @@ const logger = require("../utils/logger")("UsersController");
 const generateJWT = require("../utils/generateJWT");
 
 const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,32}/;
-const emailPattern = /^[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\.[A-Za-z]{2,}$/;
 
+//跳脫字元\\- 改成寫 \- , 要跳脫避免與範圍運算混淆
+const emailPattern = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
 function isUndefined(value) {
 	return value === undefined;
 }
@@ -25,15 +26,24 @@ class UsersController {
 				isNotValidSting(name) ||
 				name.trim().length > 10 ||
 				name.trim().length < 2 ||
-				isUndefined(email) ||
-				isNotValidSting(email) ||
-				!emailPattern.test(email) ||
 				isUndefined(password) ||
 				isNotValidSting(password)
 			) {
 				logger.warn("欄位未填寫正確");
 				res.status(400).json({
 					message: "欄位未填寫正確",
+				});
+				return;
+			}
+			//信箱驗證
+			if (
+				isUndefined(email) ||
+				isNotValidSting(email) ||
+				!emailPattern.test(email)
+			) {
+				logger.warn("Email格式不正確");
+				res.status(400).json({
+					message: "Email格式不正確",
 				});
 				return;
 			}
@@ -47,11 +57,10 @@ class UsersController {
 				});
 				return;
 			}
-			const userRepository = dataSource.getRepository("users");
+			const userRepository = dataSource.getRepository('users');
 			const existingUser = await userRepository.findOne({
 				where: { email },
 			});
-
 			if (existingUser) {
 				logger.warn("註冊失敗，Email 已被使用");
 				res.status(409).json({
@@ -70,8 +79,13 @@ class UsersController {
 			const savedUser = await userRepository.save(newUser);
 			logger.info("新建立的使用者ID:", savedUser.id);
 			res.status(201).json({
+				status: "success",
 				message: "註冊成功",
-				data: savedUser
+				data: {
+					id: savedUser.id,
+					name: savedUser.name,
+					email: savedUser.email,
+				}
 			});
 		} catch (error) {
 			logger.error("建立使用者錯誤:", error);

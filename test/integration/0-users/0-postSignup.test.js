@@ -60,7 +60,7 @@ describe(`POST ${route}`, () => {
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(StatusCodes.CREATED);
-    expect(result.body.message).toEqual("註冊成功");
+	  expect(result.body.message).toEqual("註冊成功");
   });
   it("輸入重複的註冊資訊，回傳HTTP Code 201", async () => {
     const result = await server
