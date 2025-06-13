@@ -44,7 +44,7 @@ describe(`POST ${route}`, () => {
 			.post(route)
 			.send({
 				name: "測試用戶",
-				email: "not-an-email",
+				email: `${new Date().getTime()}@example.com  `,
 				password: "hexSchool12345"
 			})
 			.expect(400);
