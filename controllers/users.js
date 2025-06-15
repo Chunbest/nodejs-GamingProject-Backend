@@ -150,6 +150,7 @@ class UsersController {
 			);
 
 			res.status(200).json({
+				status: "success",
 				message: "登入成功",
 				data: {
 					token,
