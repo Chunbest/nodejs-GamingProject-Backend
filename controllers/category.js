@@ -28,7 +28,8 @@ class CategoryController {
 				select: ['id', 'name', 'description']
 			})
 			res.status(200).json({
-				message: '成功',
+				status: 'success',
+				message: '取得商品分類成功',
 				data: categories
 			})
 		} catch (error) {

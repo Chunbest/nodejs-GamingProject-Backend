@@ -56,6 +56,7 @@ class ProductsController {
           origin_price: true,
           price: true,
           created_at: true,
+		  is_hot: true,
           product_categories: {
             name: true
           }
@@ -75,20 +76,21 @@ class ProductsController {
         where: productWhereOptions
       })
       res.status(200).json({
-        message: '成功',
+        message: '取得商品成功',
         data: {
           pagination: {
             current_page: pageToInt,
             total_page: Math.ceil(total / perPage)
           },
-          products: products.map(({ id, name, description, image_url: imageUrl, origin_price: originPrice, price, product_categories: productCategories }) => ({
+          products: products.map(({ id, name, description, image_url: imageUrl, origin_price: originPrice, price, product_categories: productCategories, is_hot }) => ({
             id,
             name,
             category: productCategories.name,
             description,
             image_url: imageUrl,
             origin_price: originPrice,
-            price
+			price,
+            is_hot
           }))
         }
       })

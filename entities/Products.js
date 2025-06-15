@@ -49,8 +49,12 @@ module.exports = new EntitySchema({
     },
     enable: {
       type: 'bool',
-      nullable: false
-    },
+	  nullable: false,
+	  },
+	is_hot: {
+	  type: 'bool',
+	  nullable: false
+	},
     created_at: {
       type: 'timestamp',
       createDate: true,
