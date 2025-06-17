@@ -123,10 +123,12 @@ class ProductsController {
 			const { products_id: productId } = req.params;
 			if (isUndefined(productId) || isNotValidSting(productId)) {
 				res.status(400).json({
+					status: "failed",
 					message: "欄位未填寫正確",
 				});
 				return;
 			}
+			
 			const productDetail = await dataSource.getRepository("products").findOne({
 				select: {
 					id: true,
@@ -176,6 +178,7 @@ class ProductsController {
 			logger.info(`productDetail: ${JSON.stringify(productDetail, null, 1)}`);
 			logger.info(`productLinkTag: ${JSON.stringify(productLinkTag, null, 1)}`);
 			logger.info(`productVariants: ${JSON.stringify(productVariants, null, 1)}`);
+			
 			res.status(200).json({
 				status: "success",
 				message: "取得商品詳細成功",
@@ -191,7 +194,8 @@ class ProductsController {
 					images: {
 						image_url: productDetail.image_url,
 					},
-					variants: {						
+					variants: {
+						id: productVariants.id,
 						colors: productVariants.colors,
 						size: productVariants.size,
 						quantity: productVariants.quantity,
