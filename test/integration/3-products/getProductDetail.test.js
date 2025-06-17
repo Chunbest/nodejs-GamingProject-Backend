@@ -32,7 +32,7 @@ describe(`GET ${route}`, () => {
 			.set('Accept', 'application/json')
 			.expect('Content-Type', /json/)
 			.expect(200)
-		expect(result.body.message).toEqual('成功')
+		expect(result.body.message).toEqual('取得商品成功')
 		expect(result.body.data).toHaveProperty('id')
 		expect(result.body.data).toHaveProperty('category')
 		expect(result.body.data).toHaveProperty('tags')
@@ -81,4 +81,4 @@ describe(`GET ${route}`, () => {
 	afterAll(async () => {
 		await TestServer.close()
 	})
-  })
+})
