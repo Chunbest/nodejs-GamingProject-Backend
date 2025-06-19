@@ -1,6 +1,7 @@
 const { dataSource } = require("../db/data-source");
 const { IsNull } = require("typeorm");
 const logger = require("../utils/logger")("ProductsController");
+const validator = require("validator");
 
 const numberReg = /^[0-9]+$/;
 
@@ -8,7 +9,7 @@ function isUndefined(value) {
 	return value === undefined;
 }
 
-function isNotValidSting(value) {
+function isNotValidString(value) {
 	return typeof value !== "string" || value.trim().length === 0 || value === "";
 }
 
@@ -121,14 +122,21 @@ class ProductsController {
 	static async getProductDetail(req, res, next) {
 		try {
 			const { products_id: productId } = req.params;
-			if (isUndefined(productId) || isNotValidSting(productId)) {
+			if (isUndefined(productId) || isNotValidString(productId)) {
 				res.status(400).json({
 					status: "failed",
 					message: "欄位未填寫正確",
 				});
 				return;
 			}
-			
+
+			if (!validator.isUUID(productId)) {
+				res.status(400).json({
+					status: "failed",
+					message: "找不到商品",
+				});
+				return;
+			}
 			const productDetail = await dataSource.getRepository("products").findOne({
 				select: {
 					id: true,
@@ -147,6 +155,13 @@ class ProductsController {
 					product_categories: true,
 				},
 			});
+			if (!productDetail || !productDetail.product_categories) {
+				res.status(404).json({
+					status: "failed",
+					message: "找不到商品",
+				});
+				return;
+			}
 			const productVariants = await dataSource.getRepository("product_variants").findOne({
 				select: {
 					id: true,
@@ -178,12 +193,12 @@ class ProductsController {
 			logger.info(`productDetail: ${JSON.stringify(productDetail, null, 1)}`);
 			logger.info(`productLinkTag: ${JSON.stringify(productLinkTag, null, 1)}`);
 			logger.info(`productVariants: ${JSON.stringify(productVariants, null, 1)}`);
-			
+
 			res.status(200).json({
 				status: "success",
 				message: "取得商品詳細成功",
 				data: {
-					produts: {
+					products: {
 						id: productDetail.id,
 						name: productDetail.name,
 						category: productDetail.product_categories.name,
@@ -194,22 +209,24 @@ class ProductsController {
 					images: {
 						image_url: productDetail.image_url,
 					},
-					variants: {
-						id: productVariants.id,
-						colors: productVariants.colors,
-						size: productVariants.size,
-						quantity: productVariants.quantity,
-						spec: productVariants.spec
-					},
-					tags: productLinkTag.map(
-						({ product_tags: productTags }) => productTags
-					),
+					variants: productVariants
+					? {
+				id: productVariants.id,
+				colors: productVariants.colors,
+				size: productVariants.size, // ✅ 若 size 有欄位才回傳
+				quantity: productVariants.quantity,
+				spec: productVariants.spec,
+			}
+            : null,
+				tags: productLinkTag.map(
+					({ product_tags: productTags }) => productTags
+				),
 				},
-			});
-		} catch (error) {
-			logger.error(error);
-			next(error);
-		}
+	});
+} catch (error) {
+	logger.error(error);
+	next(error);
+}
 	}
 }
 module.exports = ProductsController;
