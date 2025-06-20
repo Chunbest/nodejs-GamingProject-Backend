@@ -54,6 +54,7 @@ class OrderController {
 				isNotValidInteger(paymentMethods) || !paymentMethodReg.test(paymentMethods)) {
 				logger.warn('欄位未填寫正確')
 				res.status(400).json({
+					status: 'failed',
 					message: '欄位未填寫正確'
 				})
 				return
@@ -103,9 +104,9 @@ class OrderController {
 			const orderRepository = dataSource.getRepository('orders')
 			const newOrder = await orderRepository.save(orderRepository.create({
 				users_id: id,
-				name: user.name,
-				tel: user.tel,
-				address: user.address,
+				name: users.name,
+				tel: users.tel,
+				address: users.address,
 				is_paid: false,
 				payment_methods_id: paymentMethods,
 				// 新訂單的狀態應由後端設定
