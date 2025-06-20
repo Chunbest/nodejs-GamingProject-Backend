@@ -104,9 +104,9 @@ class OrderController {
 			const orderRepository = dataSource.getRepository('orders')
 			const newOrder = await orderRepository.save(orderRepository.create({
 				users_id: id,
-				name: users.name,
-				tel: users.tel,
-				address: users.address,
+				name: user.name,
+				tel: user.tel,
+				address: user.address,
 				is_paid: false,
 				payment_methods_id: paymentMethods,
 				// 新訂單的狀態應由後端設定
