@@ -28,6 +28,17 @@ module.exports = new EntitySchema({
 			type: "integer",
 			nullable: false,
 		},
+		// 商品折扣欄位，使用 numeric 類型儲存折扣率
+		// precision: 3 表示總位數為 3 位
+		// scale: 2 表示小數位數為 2 位
+		// 例如：0.90 表示九折，1.00 表示原價
+		discount: {
+			type: "numeric",
+			precision: 3,
+			scale: 2,
+			nullable: true,
+			comment: "折扣（如 0.9 表示九折）",
+		},
 		product_categories_id: {
 			type: "smallint",
 			nullable: false,
