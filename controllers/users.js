@@ -257,8 +257,8 @@ class UsersController {
 			res.status(200).json({
 				data: {
 					user: result,
-					message: "沒有任何資料變更",
 				},
+				message: "您的資料變更成功",
 			});
 		} catch (error) {
 			logger.error("取得使用者資料錯誤:", error);
