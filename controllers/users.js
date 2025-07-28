@@ -52,7 +52,7 @@ class UsersController {
 					"建立使用者錯誤: 密碼不符合規則，需要包含英文數字大小寫，最短8個字，最長32個字"
 				);
 				res.status(400).json({
-					message:"密碼不符合規則，需要包含英文數字大小寫，最短8個字，最長32個字",
+					message: "密碼不符合規則，需要包含英文數字大小寫，最短8個字，最長32個字",
 				});
 				return;
 			}
@@ -220,17 +220,18 @@ class UsersController {
 			}
 			const userRepository = dataSource.getRepository("users");
 			const user = await userRepository.findOne({
-				select: ["name"],
+				select: ["name", "tel", "address"],
 				where: {
 					id,
 				},
 			});
-			if (user.name === name) {
+			if (user.name === name && user.tel === tel && user.address === address) {
 				res.status(400).json({
-					message: "使用者名稱未變更",
+					message: "沒有任何資料變更",
 				});
 				return;
 			}
+
 			const updatedResult = await userRepository.update(
 				{
 					id,
@@ -256,6 +257,7 @@ class UsersController {
 			res.status(200).json({
 				data: {
 					user: result,
+					message: "沒有任何資料變更",
 				},
 			});
 		} catch (error) {
